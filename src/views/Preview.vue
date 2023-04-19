@@ -82,6 +82,9 @@ export default {
         url = window.URL.createObjectURL(file)
       }
       return url
+    },
+    aaa() {
+      console.log(1112345)
     }
   }
 }
