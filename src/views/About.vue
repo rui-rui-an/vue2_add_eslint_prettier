@@ -6,7 +6,7 @@
       <el-table-column prop="name" label="审批人" width="180">
       </el-table-column>
       <el-table-column prop="baseFile" label="审批意见">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <div class="viewItem" @click="viewPdf(scope.row.baseFile)">
             预览
           </div>
@@ -34,12 +34,12 @@ export default {
   },
   methods: {
     viewPdf (content) {
-      let url = this.createDownloadFileUrl('pdf预览', content)
+      const url = this.createDownloadFileUrl('pdf预览', content)
       // console.log(url);
       window.open('/pdf/web/viewer.html?file=' + url)
     },
     createDownloadFileUrl (fileName, file) {
-      var blob = this.dataURLtoFile(
+      const blob = this.dataURLtoFile(
         `data:application/pdf;base64,${file}`,
         fileName
       ) // application/zip 需要改成要下载文件的类型
@@ -49,11 +49,11 @@ export default {
     },
     dataURLtoFile (dataurl, filename) {
       // 生成Blob
-      var arr = dataurl.split(',')
-      var mime = arr[0].match(/:(.*?);/)[1]
-      var bstr = atob(arr[1])
-      var n = bstr.length
-      var u8arr = new Uint8Array(n)
+      const arr = dataurl.split(',')
+      const mime = arr[0].match(/:(.*?);/)[1]
+      const bstr = atob(arr[1])
+      let n = bstr.length
+      const u8arr = new Uint8Array(n)
       while (n--) {
         u8arr[n] = bstr.charCodeAt(n)
       }
