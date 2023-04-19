@@ -6,7 +6,7 @@
       <el-table-column prop="name" label="审批人" width="180">
       </el-table-column>
       <el-table-column prop="baseFile" label="审批意见">
-        <template slot-scope="scope">
+        <template v-slot="scope">
           <div class="viewItem" @click="viewPdf(scope.row.baseFile)">
             预览
           </div>
@@ -57,9 +57,12 @@ export default {
       }
       return new Blob([uInt8Array], { type: 'application/pdf' })
     },
-    abc(){
-      console.log(111);
-      console.log(222);
+    abc () {
+      console.log(111)
+      console.log(222)
+      console.log(333)
+      console.log(4444)
+      console.log(333)
     }
   }
 }
