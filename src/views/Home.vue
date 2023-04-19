@@ -1,15 +1,11 @@
 <template>
   <div class="home">
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="审批日期" width="180">
-      </el-table-column>
-      <el-table-column prop="name" label="审批人" width="180">
-      </el-table-column>
+      <el-table-column prop="date" label="审批日期" width="180"></el-table-column>
+      <el-table-column prop="name" label="审批人" width="180"></el-table-column>
       <el-table-column prop="baseFile" label="审批意见">
         <template v-slot="scope">
-          <div class="viewItem" @click="viewPdf(scope.row.baseFile)">
-            预览
-          </div>
+          <div class="viewItem" @click="viewPdf(scope.row.baseFile)">预览</div>
         </template>
       </el-table-column>
     </el-table>
@@ -20,7 +16,7 @@
 export default {
   name: 'Home',
   components: {},
-  data () {
+  data() {
     return {
       tableData: [
         {
@@ -33,7 +29,7 @@ export default {
     }
   },
   methods: {
-    viewPdf (content) {
+    viewPdf(content) {
       if (!content) {
         console.log(content)
         this.$message.error('暂无意见')
@@ -47,7 +43,7 @@ export default {
         window.open(fileURL)
       }
     },
-    base64ToBlob (code) {
+    base64ToBlob(code) {
       code = code.replace(/[\n\r]/g, '')
       const raw = window.atob(code)
       const rawLength = raw.length
@@ -57,7 +53,7 @@ export default {
       }
       return new Blob([uInt8Array], { type: 'application/pdf' })
     },
-    abc () {
+    abc() {
       console.log(111)
       console.log(222)
       console.log(333)

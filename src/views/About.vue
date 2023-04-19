@@ -1,15 +1,11 @@
 <template>
   <div class="home">
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="审批日期" width="180">
-      </el-table-column>
-      <el-table-column prop="name" label="审批人" width="180">
-      </el-table-column>
+      <el-table-column prop="date" label="审批日期" width="180"></el-table-column>
+      <el-table-column prop="name" label="审批人" width="180"></el-table-column>
       <el-table-column prop="baseFile" label="审批意见">
         <template v-slot="scope">
-          <div class="viewItem" @click="viewPdf(scope.row.baseFile)">
-            预览
-          </div>
+          <div class="viewItem" @click="viewPdf(scope.row.baseFile)">预览</div>
         </template>
       </el-table-column>
     </el-table>
@@ -20,7 +16,7 @@
 export default {
   name: 'Home',
   components: {},
-  data () {
+  data() {
     return {
       tableData: [
         {
@@ -33,21 +29,18 @@ export default {
     }
   },
   methods: {
-    viewPdf (content) {
+    viewPdf(content) {
       const url = this.createDownloadFileUrl('pdf预览', content)
       // console.log(url);
       window.open('/pdf/web/viewer.html?file=' + url)
     },
-    createDownloadFileUrl (fileName, file) {
-      const blob = this.dataURLtoFile(
-        `data:application/pdf;base64,${file}`,
-        fileName
-      ) // application/zip 需要改成要下载文件的类型
+    createDownloadFileUrl(fileName, file) {
+      const blob = this.dataURLtoFile(`data:application/pdf;base64,${file}`, fileName) // application/zip 需要改成要下载文件的类型
       blob.lastModifiedDate = new Date()
       blob.name = fileName
       return URL.createObjectURL(blob)
     },
-    dataURLtoFile (dataurl, filename) {
+    dataURLtoFile(dataurl, filename) {
       // 生成Blob
       const arr = dataurl.split(',')
       const mime = arr[0].match(/:(.*?);/)[1]
