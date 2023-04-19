@@ -1,29 +1,18 @@
 <template>
   <div class="home">
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="审批日期" width="180">
-      </el-table-column>
-      <el-table-column prop="name" label="审批人" width="180">
-      </el-table-column>
+      <el-table-column prop="date" label="审批日期" width="180"></el-table-column>
+      <el-table-column prop="name" label="审批人" width="180"></el-table-column>
       <el-table-column prop="baseFile" label="审批意见">
         <template v-slot="scope">
-          <div class="viewItem" @click="viewPdf(scope.row.baseFile)">
-            预览
-          </div>
+          <div class="viewItem" @click="viewPdf(scope.row.baseFile)">预览</div>
         </template>
       </el-table-column>
     </el-table>
     <div style="margin-top: 40px">
       <input type="file" name="myfile" id="myfile" @change="preview($event)" />
       <!--<button @click="changeLocal">点击预览本地pdf</button>-->
-      <iframe
-        v-if="showPdf"
-        id="previewPdf"
-        :src="'/pdf/web/viewer.html?file=' + fileUrl"
-        height="900"
-        width="100%"
-      >
-      </iframe>
+      <iframe v-if="showPdf" id="previewPdf" :src="'/pdf/web/viewer.html?file=' + fileUrl" height="900" width="100%"></iframe>
     </div>
   </div>
 </template>
@@ -32,7 +21,7 @@
 export default {
   name: 'Home',
   components: {},
-  data () {
+  data() {
     return {
       showPdf: false,
       fileUrl: '',
@@ -47,21 +36,18 @@ export default {
     }
   },
   methods: {
-    viewPdf (content) {
+    viewPdf(content) {
       const url = this.createDownloadFileUrl('pdf预览', content)
       console.log(url)
       window.open('/pdf/web/viewer.html?file=' + url)
     },
-    createDownloadFileUrl (fileName, file) {
-      const blob = this.dataURLtoFile(
-        `data:application/pdf;base64,${file}`,
-        fileName
-      ) // application/zip 需要改成要下载文件的类型
+    createDownloadFileUrl(fileName, file) {
+      const blob = this.dataURLtoFile(`data:application/pdf;base64,${file}`, fileName) // application/zip 需要改成要下载文件的类型
       blob.lastModifiedDate = new Date()
       blob.name = fileName
       return URL.createObjectURL(blob)
     },
-    dataURLtoFile (dataurl, filename) {
+    dataURLtoFile(dataurl, filename) {
       // 生成Blob
       const arr = dataurl.split(',')
       const mime = arr[0].match(/:(.*?);/)[1]
@@ -74,7 +60,7 @@ export default {
       return new Blob([u8arr], { type: mime })
     },
     // 这是打开本地文件进行预览
-    preview () {
+    preview() {
       const files = document.getElementById('myfile').files[0]
       if (files.type !== 'application/pdf') {
         alert('只能上传一份pdf文件哦～')
@@ -83,7 +69,7 @@ export default {
       this.showPdf = true
       this.fileUrl = this.getObjectURL(files)
     },
-    getObjectURL (file) {
+    getObjectURL(file) {
       let url = null
       if (window.createObjectURL !== undefined) {
         // basic
