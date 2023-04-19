@@ -56,6 +56,10 @@ export default {
         uInt8Array[i] = raw.charCodeAt(i)
       }
       return new Blob([uInt8Array], { type: 'application/pdf' })
+    },
+    abc(){
+      console.log(111);
+      console.log(222);
     }
   }
 }
